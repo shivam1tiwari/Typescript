@@ -1,0 +1,60 @@
+
+.about__container{
+  width: 100%;
+  
+}
+.about_description{
+  display: flex;
+  justify-content: space-between;
+  background-color: #037BD5;
+  padding: 2rem;
+  margin-top: -.3rem;
+  
+  
+}
+
+
+
+.about_content{
+  padding: 1rem 2rem;
+ 
+}
+
+.about_content_text{
+  margin-bottom: 2rem;
+  h1{
+    color: #FFCE00;
+    font-weight: 600;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+  }
+  p{
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+}
+
+.description_img{
+  width: 100%;
+  padding: 1rem 2rem;
+}
+
+.about_button{
+  width: 15rem;
+  border: 1px solid #FFFFFF;
+  border-radius: .3rem;
+  margin-top: 9.5rem;
+
+  #about_button{
+    width: 100%;
+    height: 100%;
+    border: none;
+    color: #FFFFFF;
+    font-weight: 550;
+    letter-spacing: 2px;
+    font-size: 1.05rem;
+    padding-bottom: 1.5rem;
+    background-color: transparent;
+  }
+}
