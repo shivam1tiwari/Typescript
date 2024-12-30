@@ -1,0 +1,108 @@
+/* General styling for the Orders container */
+.orders__container {
+  width: 1600px;
+  margin: 0 auto;
+  padding: 1.25rem; 
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+}
+
+/* Heading for My Orders */
+.orders__container h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.25rem; /* 20px */
+}
+
+/* Style for orders list */
+.orders-list {
+  margin-top: 1.25rem; /* 20px */
+}
+
+/* Styling for individual order card */
+.order-card {
+  background-color: #fff;
+  padding: 1.25rem; /* 20px */
+  margin-bottom: 1.25rem; /* 20px */
+  border: 1px solid #ccc;
+  border-radius: 0.625rem; /* 10px */
+  box-shadow: 0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.1); /* 5px */
+}
+
+.order-card h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.order-card p {
+  margin: 0.3125rem 0; /* 5px */
+  color: #555;
+}
+
+/* Styling for the items container */
+.order-items {
+  margin-top: 0.625rem; /* 10px */
+}
+
+/* Display order items in a column */
+.order-items-row {
+  display: flex;
+    /* Stack the items vertically */
+  gap: 0.9375rem;  /* 15px space between items */
+}
+
+/* Styling for individual order item */
+.order-item {
+  display: flex;
+  flex-direction: column;  /* Stack image and text vertically */
+  align-items: center;
+  padding: 0.9375rem; /* 15px */
+  background-color: #fff;
+  border-radius: 0.625rem; /* 10px */
+  box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.1); /* 5px */
+  width: 15.625rem; /* 250px fixed width for each item card */
+  text-align: center;
+}
+
+/* Image styling */
+.item-image {
+  width: 6.25rem; /* 100px */
+  height: 6.25rem; /* 100px */
+  object-fit: cover;
+  margin-bottom: 0.625rem; /* 10px */
+  border-radius: 0.625rem; /* 10px */
+}
+
+/* Styling for item details */
+.item-details p {
+  margin: 0;
+  color: #444;
+}
+
+/* Total price and order status */
+strong {
+  color: #000;
+  font-size: 1.2rem; /* 19.2px */
+  margin-top: 0.625rem; /* 10px */
+  display: block;
+}
+
+/* Additional styling for empty cart */
+.orders__container p {
+  text-align: center;
+  font-size: 1.2rem; /* 19.2px */
+  color: #888;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 48rem) { /* 768px */
+  .order-items-row {
+    flex-direction: column;  /* Stack items vertically on smaller screens */
+  }
+
+  .order-item {
+    width: 100%;  /* Full width for each item */
+    margin-bottom: 0.9375rem; /* 15px */
+  }
+}
+
