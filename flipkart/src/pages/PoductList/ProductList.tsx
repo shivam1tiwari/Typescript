@@ -1,48 +1,67 @@
 import React from "react";
 import './ProductList.css'
-import { useLocation, useNavigate} from "react-router-dom";
+import { useLocation} from "react-router-dom";
 import ProductListCard from "../../components/ProListCard/ProductListCard.tsx";
+import category from "../../constant/category.ts";
+import products from "../../constant/product.ts";
+import { useState,useRef } from "react";
 
 
 
 const ProductList = () =>{
+  const [sortData, setSortData] = useState([]);
+  const [sortInputByPrice, setSortInputByPrice] = useState({min:0,max:0})
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const value = queryParams.get('key');
-  const product = {
-    "product_id": "P001",
-    "name": "Lenovo Thinkbook",
-    "description": "This is a lenovo laptop very fast and good.",
-    "price": 26000,
-    "brand": "Lenovo",
-    "stock_quantity": 100,
-    "rating": 4.5,
-    "category_id": "C003",
-    "image_url": "",
-    "attributes": {
-      "color": "Black",
-      "battery_life": "20 hours",
-      "weight": "300g",
-      "connectivity": "Bluetooth"
-    }
+  const value = queryParams.get("key");
+  // const catName = category.map((val)=>val.category_id);
+  const catId = category.map((val)=>{if(val.category_name == value){
+              return   val.category_id}}).join('')
+  const product =  products.filter((val)=>val.category_id == catId);             
+  console.log(value, product)
+  const handleSortByPrice = (e) =>{
+
+        if(e.target.dataset.id == "high"){
+          const sort = (sortData.length==0?product:sortData).slice().sort((a, b)=>a.price - b.price);
+         
+         setSortData((prev)=>{
+          return [...sort];
+         })
+        }
+        if(e.target.dataset.id == "low"){
+          const sort = (sortData.length==0?product:sortData).slice().sort((a, b)=>b.price - a.price);
+         
+         setSortData((prev)=>{
+
+          return [...sort];
+         })
+        }
+        
   }
- const product1= {
-    "product_id": "P002",
-    "name": "Lenovo Bold",
-    "description": "This is a lenovo laptop very fast and good.",
-    "price": 26000,
-    "brand": "Lenovo",
-    "stock_quantity": 100,
-    "rating": 4.5,
-    "category_id": "C003",
-    "image_url": "",
-    "attributes": {
-      "color": "Black",
-      "battery_life": "20 hours",
-      "weight": "300g",
-      "connectivity": "Bluetooth"
-    }
+  const handleChangeInputByPrice = (e) =>{
+        const {name, value} = e.target;
+        console.log(name, value)
+        setSortInputByPrice((prev)=>{
+         return  {...prev,[name]:value}
+        })
   }
+  console.log(sortData, "data",sortInputByPrice)
+  const sortRangePrice = (e) => {
+      e.preventDefault()
+      console.log(e.target)
+      setSortData((prev)=>{
+        const newData = (sortData.length==0?product:sortData).filter((val)=>(val.price > sortInputByPrice["min"]) && val.price < sortInputByPrice["max"]);
+        return [...newData]
+      })
+  }
+
+  const handleBrandCheckbox = (e) =>{
+    setSortData((prev)=>{
+      const newData = (sortData.length==0?product:sortData).filter((val)=>(val.brand == e.target.value));
+      return [...newData]
+    })
+  }
+
   return(
   <div className="product_list_container">
     <div className="product_list_container__left">
@@ -58,16 +77,31 @@ const ProductList = () =>{
         <div className="filter_box">
         <div className="filter_categories">
           <h5>Categories</h5>
+          <ul><li>{value}</li></ul>
         </div>
         </div>
         <div className="filter_box">
         <div className="filter_by_price">
+          <div>
           <h5>PRICE</h5>
+          <form onClick={(e)=>sortRangePrice(e)}>
+          <label htmlFor="">Min</label>
+          <input onChange={(e)=>handleChangeInputByPrice(e)} name="min" type="text" />
+          <label htmlFor="">Max</label>
+          <input onChange={(e)=>handleChangeInputByPrice(e)} name="max" type="text" />
+          <button type="submit" >sort</button>
+          </form>
+          </div>
         </div>
         </div>
         <div className="filter_box">
         <div className="filter_by_brand">
           <h5>BRAND</h5>
+          <ol>
+            {product.map((val)=><div key={val.brand} >
+              <label><input onChange={(e)=>handleBrandCheckbox(e)} name="brand" value={val.brand} type="checkbox"></input>{val.brand}</label>
+              </div>)}
+          </ol>
         </div>
         </div>
       </div>
@@ -82,15 +116,16 @@ const ProductList = () =>{
         Nihil doloribus, eum, explicabo fugit dolorum velit cumque, eius dolores veniam inventore culpa hic porro ut officia accusantium natus molestiae perferendis praesentium. Quia, temporibus nisi! Exercitationem distinctio assumenda facere voluptatum.
       </div>
       <div className="product_list_show">
-        <div className="product_list_show__categories"><h3 className="class_pad">{value}<h3/></h3></div>
+        <div className="product_list_show__categories"><h3 className="class_pad">{value}</h3></div>
         <div className="product_list_show__sort class_pad">
           <h5>Sort By</h5>
-          <button>Price -- Low to High</button>
-          <button>Price -- High to Low</button>
+          <p data-id = {"high"} onClick={(e)=>handleSortByPrice(e)}>Price -- Low to High</p>
+          <p data-id = {"low"}onClick={(e)=>handleSortByPrice(e)}>Price -- High to Low</p>
         </div>
         <div className="product_list_show__main">
-        <ProductListCard key={1} product={product} />
-        <ProductListCard key={2} product={product1} />
+          {(sortData.length==0?product:sortData).map((pro)=><ProductListCard key={pro.product_id} product={pro} />)}
+        {/* <ProductListCard key={1} product={product} />
+        <ProductListCard key={2} product={product1} /> */}
         </div>
       </div>
     </div>

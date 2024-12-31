@@ -10,11 +10,13 @@ const SignUp = () => {
     username: '',
     email: '',
     password: '',
-    confirmPassword: '',
+    confirm_password: '',
     address: '',
     pincode: '',
     gender: '',
   });
+
+  const [isEmpty, setIsEmpty] = useState(false)
 
   //  Handle Input Changes
   const handleInputChange = (e) => {
@@ -37,6 +39,15 @@ const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault(); 
     console.log(formData); 
+    let empty = inputfeilds.map((val)=>{
+      if(formData[val] ===""){
+        return true;
+      }
+      return false;
+    })
+    setIsEmpty(()=>empty)
+
+   
     localStorage.setItem("user",JSON.stringify(formData))
    
   };
@@ -58,7 +69,7 @@ const SignUp = () => {
         <div className="right__content">
           <form onSubmit={(e)=>{handleSubmit(e)}}>
             {inputfeilds.map((inputfeild,i)=><div key={i} >
-            <label htmlFor="username"></label>
+            <label htmlFor="username">{(isEmpty?"invalid":"")}</label>
             <input onChange={(e)=>handleInputChange(e)} className='common_input' name={inputfeild} id={inputfeild} type={(inputfeild!="password"||(inputfeild!="confirm_password"))?"text":"password"} placeholder={`Enter ${(inputfeild.slice(0,1).toLocaleUpperCase() + inputfeild.slice(1))}`} autoComplete={"off"} onFocus={()=>handleFocus()} />
             </div>)}
             {/* <div>

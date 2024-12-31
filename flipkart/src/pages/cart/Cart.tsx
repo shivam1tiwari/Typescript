@@ -14,9 +14,10 @@ const Cart = () => {
   // console.log(cart.items[0].product.id)
   {console.log(cart,"afterre")}
   const handleUdateQuantity = (e)=>{
-       console.log( e.target.dataset.id)
-     const item = cart.items.filter((item)=>item.product.id == e.target.dataset.id)
-     console.log(item[0].quantity)
+       console.log( e.target.dataset.id,"this click id")
+     const item = cart.items.filter((item)=>item.product.product_id === e.target.dataset.id)
+     console.log(item, "item value")
+     console.log(item[0].quantity,item, "item value" )
      let quantity;
      if(e.target.dataset.button == "max"){
      quantity = (item[0].quantity) + 1;}
@@ -25,6 +26,8 @@ const Cart = () => {
         quantity = 1;
       }else{
       quantity = (item[0].quantity) - 1;}}
+      console.log(item[0].quantity,"after update quantity")
+      console.log(e.target.dataset.id, quantity,"checking payload ")
       dispatch(updateCartQuantity(e.target.dataset.id,quantity));
       //  console.log(cart.items[0].quantity)
   }
@@ -35,6 +38,7 @@ const Cart = () => {
 
   const handleRemoveItem = (e) => {
     const prodId = e.target.dataset.id
+    console.log(prodId)
     dispatch(removeFromCart(prodId))
   }
   
@@ -47,22 +51,23 @@ const Cart = () => {
       {cart.items.length === 0 ? (
         <p>Your cart is empty!</p>
       ) : (
-        <div>
+        // <div key={}>
+        <>
           <div className="cart-items">
             {/* Render cart items in column layout */}
             {cart.items.map((item) => (
-              <div className="cart-item" key={item.product.id}>
-                <img src={item.product.imageUrl} alt={item.product.name} className="item-image" />
+              <div className="cart-item" key={item.product.product_id}>
+                <img src={item.product.image_url} alt={item.product.name} className="item-image" />
                 <div className="item-details">
                   <h2>{item.product.name}</h2>
-                  <p>Price: ${item.product.price}</p>
+                  <p>Price: Rs.{item.product.price}</p>
                   <div className="quantity-controls">
-                    <button data-button={"min"} data-id={item.product.id} onClick={(e)=>handleUdateQuantity(e)} >-</button>
+                    <button data-button={"min"} data-id={item.product.product_id} onClick={(e)=>handleUdateQuantity(e)} >-</button>
                     <span>Quantity: {item.quantity}</span>
-                    <button data-button={"max"} data-id={item.product.id} onClick={(e)=>handleUdateQuantity(e)} >+</button>
+                    <button data-button={"max"} data-id={item.product.product_id} onClick={(e)=>handleUdateQuantity(e)} >+</button>
                   </div>
-                  <p>Total: Rs{item.totalPrice}</p>
-                  <button data-id={item.product.id} onClick={(e)=>handleRemoveItem(e)}  >Remove Item</button>
+                  <p>Total: Rs. {item.totalPrice}</p>
+                  <button data-id={item.product.product_id} onClick={(e)=>handleRemoveItem(e)}>Remove Item</button>
                 </div>
               </div>
             ))}
@@ -72,7 +77,8 @@ const Cart = () => {
             <h3>Total: Rs{cart.total}</h3>
           </div>
           <button >Place Order</button>
-        </div>
+          </>
+        // </div>
       )}
 
       {/* Order Confirmation */}

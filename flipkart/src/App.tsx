@@ -60,6 +60,7 @@ const App = ()=> {
           <Route path="/orders" element={<Orders />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="products" element={<ProductList childNod={<ProductListCard/>} />} />
+          <Route path='/products/product-details' element={<ProductDetails/>}/>
         </Routes>
      <Footer/>
     </div>

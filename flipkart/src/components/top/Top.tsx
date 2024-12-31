@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import './Top.css';
 import arrow from '../../asset/arrow-down.svg'
 import Card from "../ProductCard/Card.tsx";
+import products from "../../constant/product.ts";
 
-const Top = ({noOfProd,brandName})=>{
+const Top = ({noOfProd,brandName,product})=>{
 //  const [noOfProd, setNoOfProd] = useState(10)
+  // const product =  products.filter((pro)=>pro.rating > 4.7);
+  console.log(product)
    return(
       <div className="top__container">
         <div className="top__content">
@@ -14,25 +17,8 @@ const Top = ({noOfProd,brandName})=>{
           </div>
           <div className="top__content_product">
             <div className="top__content_product-card" style={{transform:`translateX(-${noOfProd*13}rem)`}} >
-              <Card  />
-              <Card/>
-              <Card/>
-              <Card/>
-              <Card/>
-              <Card/>
-              <Card/>
-              <Card/>
-              <Card/>
-              <Card/>
-              <Card/>
-              <Card/>
-              <Card/>
-              <Card/>
-              <Card/>
-              <Card/>
-              <Card/>
-              <Card/>
-            
+              {product.map((val)=> <Card key={val.product_id} product={val}/>)}
+             
             </div>
           </div>
           

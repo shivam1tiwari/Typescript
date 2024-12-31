@@ -1,6 +1,5 @@
-import React from "react";
+import React,{useState} from "react";
 import './Header.css'
-// import content from '../../module';
 import { Link } from "react-router-dom";
 import logo from '../../asset/logo.svg'; 
 import loginImg from '../../asset/profile-icon.svg';
@@ -11,14 +10,47 @@ import verticleDot from '../../asset/header_3verticalDots.svg';
 import List from "../../utils/List.tsx";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../../Redux/ActionCreator.ts";
+import products from "../../constant/product.ts";
+import product from "../../constant/product.ts";
+import { useNavigate } from "react-router-dom";
+
 
 const Header = () =>{
+  const [searchItem, setSearchItem] = useState([])
+  const location = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector((state)=>state.user);
   const toggleUser = (user==null)?"Login":"My Account"
   const cartAccess = (user==null)?"/login":"/cart"
   const handleLogout = () =>{
     dispatch(logoutUser())
+  }
+
+  const handleSearch = (e)=>{
+    const str = e.target.value;
+      console.log(e.target.value)
+      setSearchItem((val)=>{
+        let arr = [...val]
+         arr = []
+        return arr;
+      })
+    const brandMatch = product.map((val)=>{
+     
+    console.log(val.brand.toLocaleUpperCase().substring(0,str.length)== str.toLocaleUpperCase())
+    if(val.name.toLocaleUpperCase().substring(0,str.length) == str.toLocaleUpperCase()&&str!==""){
+    setSearchItem((prev)=>{
+      
+      return [...prev,val]
+    })}
+  })
+   console.log(searchItem) 
+  }
+
+  const handleSearchProduct = (e) =>{
+       console.log(e.target.dataset.id)
+       const productId = e.target.dataset.id;
+       location(`/products/product-details?key=${productId}`)
+
   }
   return (
     <div className="app__container__header-box">
@@ -35,7 +67,14 @@ const Header = () =>{
               </div>
             </div>
             <div className="input-box">
-              <input type="text" placeholder="Search For Products, Brands and More" />
+              <input onChange={(e)=>handleSearch(e)} type="text" placeholder="Search For Products, Brands and More" />
+              {searchItem.map((val,i)=><div data-id ={val.product_id} onClick={(e)=>handleSearchProduct(e)} className="search_item_by_name_container" key={i}>
+                <div  data-id ={val.product_id} className="search_item_by_name_container_img"><img  data-id ={val.product_id}  src={val.image_url} alt="" /></div>
+                <div  data-id ={val.product_id}>
+                  <span  data-id ={val.product_id}>{val.name} </span>
+                  <p  data-id ={val.product_id} ><span>in .</span>{val.brand}</p></div>
+              
+              </div>)}
             </div>
           </div>
         </div>

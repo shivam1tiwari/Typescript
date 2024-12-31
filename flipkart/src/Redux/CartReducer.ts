@@ -2,42 +2,23 @@ import { ADD_TO_CART,REMOVE_FROM_CART,UPDATE_CART_QUANTITY,CLEAR_CART_ITEM } fro
 
 const imgUrl = "./images/top-brands/kurta.webp"
 const initialState = {
-  items: [
-    {
-      product: {
-        id: '1',
-        name: 'Apple iPhone 14',
-        price: 999.99,
-        imageUrl: imgUrl,
-      },
-      quantity: 1,
-      totalPrice: 999.99,
-    },
-    {
-      product: {
-        id: '2',
-        name: 'Samsung Galaxy S23',
-        price: 799.99,
-        imageUrl: imgUrl,
-      },
-      quantity: 2,
-      totalPrice: 1599.98,
-    },
-  ],
-  total: 2599.97,
+  items: [],
+  total:0,
 };
 
 export const cartReducer = (state=initialState, action)=>{
    switch(action.type){
      case ADD_TO_CART:
-      const availableProId = state.items.findIndex(item => item.product.id === action.payload.id);
+      const availableProId = state.items.findIndex(item => {
+        console.log(action.payload, item.product_id,"rahu");
+      return  (item.product.product_id === action.payload.product_id)});
       let updatedItem;
-      
+      console.log(availableProId)
       if(availableProId !== -1){
         updatedItem = state.items.map((item, index) => {
           if(index == availableProId){
             return {
-              ...state,
+              ...item,
               quantity:item.quantity + 1,
               totalPrice: item.totalPrice + action.payload.price
             }
@@ -62,7 +43,7 @@ export const cartReducer = (state=initialState, action)=>{
         total:newTotal,
       };
       case REMOVE_FROM_CART:
-        const filteredItems = state.items.filter(item => item.product.id !== action.payload);
+        const filteredItems = state.items.filter(item => item.product.product_id !== action.payload);
         const newCartTotal = filteredItems.reduce((sum, item) => sum + item.totalPrice, 0);
         return {
           ...state,
@@ -73,8 +54,10 @@ export const cartReducer = (state=initialState, action)=>{
       case UPDATE_CART_QUANTITY:
         console.log("start updation")
         const updatedCartItems = state.items.map((item)=>{
-          if(item.product.id == action.payload.productId){
-             return{
+          console.log(item.product.product_id,"condition===",action.payload.productId)
+          if(item.product.product_id == action.payload.productId){
+            console.log(item , "in update====")
+             return {
               ...item,
               quantity: action.payload.quantity,
               totalPrice: item.product.price * (action.payload.quantity)

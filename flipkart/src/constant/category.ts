@@ -1,7 +1,7 @@
 export default [
   {
     "category_id": "C001",
-    "category_name": "Glocery",
+    "category_name": "Grocery",
     "subcategories": [
       {
         "subcategory_id": "C00101",
@@ -61,7 +61,7 @@ export default [
   },
   {
     "category_id": "C005",
-    "category_name": "Home & Furniture",
+    "category_name": "Home and Furniture",
     "subcategories": [
       {
         "subcategory_id": "C00401",

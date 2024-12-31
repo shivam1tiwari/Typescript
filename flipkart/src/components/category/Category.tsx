@@ -18,9 +18,10 @@ const Category = () =>{
  const array =  [{"url" :"./images/icon/arrow-down.svg",name:"Laptop and Desktop"},{"url" :"./images/icon/arrow-down.svg",name:"Storage"}]
  const location = useNavigate()
  const handleCategory = (e) =>{
+    console.log(e.target)
     const id =  e.target.dataset.id
     location(`/products?key=${id}`)
-    console.log(location)
+    console.log(id)
  }
 
   
@@ -30,19 +31,19 @@ const Category = () =>{
     <div className="category__container">
       {
         category.map((val, i)=><div data-id={val.category_id} onClick={(e)=>handleCategory(e)} key={val.category_id} id ={val.category_name} className="common__category">
-        <div key={i} className= {`${(val.category_name ==="Electronics" ||val.category_name === "Mobiles"||
-        val.category_name === "Home & Furniture"||val.category_name === "Fashion"
+        <div key={i} className= {`${(val.category_name ==="Electronics"||
+        val.category_name === "Home and Furniture"||val.category_name === "Fashion"
         )?"category_pop-hover ":"invisible"}`}>
         <div><CategoryPop key={val.category_id} categoryPopName={array}/></div>
         <div><CategoryPop key={val.category_id} categoryPopName={array}/></div>
         </div>
         <div className="content-box">
-       <div className='cat_img'><img src={val.imageUrl} alt="" /></div>
+       <div className='cat_img'><img data-id={val.category_name} src={val.imageUrl} alt="" /></div>
        <div className='cat_text'>
         <div className='with_arrow'>
         <span data-id ={val.category_name} onClick={(e)=>{handleCategory(e)}} > {val.category_name}</span>
-        <span ><img  className={(val.category_name ==="Electronics" ||val.category_name === "Mobiles"||
-        val.category_name === "Home & Furniture"||val.category_name === "Fashion"
+        <span ><img data-id ={val.category_name}  className={(val.category_name ==="Electronics" ||
+        val.category_name === "Home and Furniture"||val.category_name === "Fashion"
         ) ? " ":"invisible"} src={arrow} alt="arrow" /></span>
         </div>
         </div>
