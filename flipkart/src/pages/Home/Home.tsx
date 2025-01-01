@@ -63,7 +63,7 @@ const Home = () => {
     <>
       <Category />
       <Slider />
-      {["brand", "grocery", "mobile", "electronics","appliances"].map((val, i) => <div key={val} className="top_product_home" >
+      {["brand", "grocery", "mobile", "fashion","appliances"].map((val, i) => <div key={val} className="top_product_home" >
         <Top key={val} noOfProd={direction[val]} brandName={val} product={product[i]} />
         <button className={`top_product_home_but-next ${direction[val]==2?"invisible":"" }`} onClick={(e) => handleInd(e)} data-id={val} value={"next"} ><img src="/images/icon/arrow-down.svg" alt="" /></button>
         <button className={`top_product_home_but-prev ${direction[val]==0?"invisible":"" }`} onClick={handleInd} data-id={val} value={"prev"}><img src="/images/icon/arrow-down.svg" alt="" /></button>

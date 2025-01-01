@@ -159,6 +159,7 @@
   height: 2rem;
   width: 10rem;
   padding: .5rem;
+  cursor: pointer;
   /* border: 1px solid green; */
 }
 
@@ -182,6 +183,7 @@
   /* margin-bottom: .3rem; */
 
 font-size: .4rem;
+font-weight: 500;
 span +p{
   font-size: .45rem;
   font-weight: 600;

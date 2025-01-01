@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import './Login.css'
 import { setUser } from '../../Redux/ActionCreator.ts';
 const Login = () => {
-  
+  const [error, setError] = useState<string>('');
   const dispatch = useDispatch();
     const userLogin = useSelector((state)=>state.user);
     console.log(userLogin)
@@ -12,11 +12,11 @@ const Login = () => {
     username:'',
     password:'',
   })
-  useEffect(() => {
-    console.log(userLogin, "yed State after setUser");
-  }, [userLogin]);
-
+  
   const handleInputChange = (e) => {
+    if(error){
+      setError("");
+    }
     const {name, value} = e.target;
     setFormData((prev)=>{
     return {
@@ -36,6 +36,11 @@ const Login = () => {
 
       console.log(userLogin, "after set user")
     }
+    if(dBData.username !== formData.username || dBData.password !== formData.password){
+      setError(()=>{
+         return "Username or Password is incorrect !"
+      })
+    }
   }
 
   return(
@@ -52,6 +57,7 @@ const Login = () => {
         </div>
       </div>
       <div className="login__container_right">
+      <p className={error?"":"appearence"}>Username or Password is incorrect !</p>
         <div className="right__content">
           <form onSubmit={(e)=>handleSubmit(e)}>
             <label htmlFor="username"></label>

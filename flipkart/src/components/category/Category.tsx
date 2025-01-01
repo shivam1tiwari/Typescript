@@ -21,12 +21,7 @@ const Category = () =>{
     console.log(e.target)
     const id =  e.target.dataset.id
     location(`/products?key=${id}`)
-    console.log(id)
- }
-
-  
-
-
+    console.log(id)}
   return(
     <div className="category__container">
       {

@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import './SignUp.css'
 const SignUp = () => {
-   const inputfeilds = ["username","password","confirm_password","email","address","pincode"] 
+   const inputfields = ["username","password","confirm_password","email","address","pincode"] 
    const handleFocus =()=>{
     console.log("raju")
    }
@@ -16,7 +16,7 @@ const SignUp = () => {
     gender: '',
   });
 
-  const [isEmpty, setIsEmpty] = useState(false)
+  const [error, setError] = useState({})
 
   //  Handle Input Changes
   const handleInputChange = (e) => {
@@ -25,6 +25,7 @@ const SignUp = () => {
       ...prevData,
       [name]: value,
     }));
+    setError({})
   };
 
   //Handle Gender Change 
@@ -34,23 +35,65 @@ const SignUp = () => {
       gender: e.target.value,
     }));
   };
+ 
+  const validation = () =>{
+    const error = {}
+    const emailValidation =   /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const isEmailValid = emailValidation.test(formData.email)
+    inputfields.map((val)=>{
+      if(!formData[val]){
+         error[val] = `${val.slice(0, 1).toLocaleUpperCase() + val.slice(1)} required`
+      } 
+    })
+      if(!formData["gender"]){
+        error["gender"] = `Gender required` 
+      }
+      
+      if(formData.password.length < 6 && formData.password !==""){
+        error["password"] = `Password required min 6 character`
+      }else if(formData.password.length >=6 ){
+        // checking for lower, upper, digit , specialcharacter and space
+        const checks = [ /[a-z]/,/[A-Z]/,/\d/,/[@.#$!%^&*.?]/,/^[^\s]*$/];
+        const isValid = checks.every((val)=>val.test(formData.password));
+
+        if(!isValid  ){
+          error["password"] = `Password required special character`   
+        }
+      }
+
+      if(formData.confirm_password !==formData.password){
+        error["confirm_password"] = `Password not matched`
+      }
+
+      if((formData.email !== "")&&!isEmailValid){
+        error["email"] = `Email is not valid`
+      }
+
+      if(formData.pincode.length < 6&&formData.pincode!==""){
+        error["pincode"] = `Pincode  is not valid` 
+      }
+
+      return error;
+
+  }
 
   // Handle Form Submit
   const handleSubmit = (e) => {
     e.preventDefault(); 
-    console.log(formData); 
-    let empty = inputfeilds.map((val)=>{
-      if(formData[val] ===""){
-        return true;
-      }
-      return false;
-    })
-    setIsEmpty(()=>empty)
-
+   const isValid =  validation();
+   setError(isValid);
+   if(Object.keys(isValid).length === 0){
+    const user = {...formData,address:[formData.address]}
+    localStorage.setItem("user",JSON.stringify(user));
+    console.log("raahul")
+   }
    
-    localStorage.setItem("user",JSON.stringify(formData))
+     
+}
+        
    
-  };
+console.log(formData, error)
+   
 
   return(
     <div className="sign_up__container">
@@ -66,11 +109,11 @@ const SignUp = () => {
         </div>
       </div>
       <div className="sign_up__container_right">
-        <div className="right__content">
-          <form onSubmit={(e)=>{handleSubmit(e)}}>
-            {inputfeilds.map((inputfeild,i)=><div key={i} >
-            <label htmlFor="username">{(isEmpty?"invalid":"")}</label>
-            <input onChange={(e)=>handleInputChange(e)} className='common_input' name={inputfeild} id={inputfeild} type={(inputfeild!="password"||(inputfeild!="confirm_password"))?"text":"password"} placeholder={`Enter ${(inputfeild.slice(0,1).toLocaleUpperCase() + inputfeild.slice(1))}`} autoComplete={"off"} onFocus={()=>handleFocus()} />
+        <div className="right__content-1">
+          <form onSubmit={(e)=>handleSubmit(e)}>
+            {inputfields.map((inputfield,i)=><div key={i} >
+            <label htmlFor="username">{error[inputfield] }</label>
+            <input onChange={(e)=>handleInputChange(e)} className='common_input' name={inputfield} id={inputfield} type={((inputfield =="password")||(inputfield =="confirm_password"))?"password":"text"} placeholder={`Enter ${(inputfield.slice(0,1).toLocaleUpperCase() + inputfield.slice(1))}`} autoComplete={"off"} onFocus={()=>handleFocus()} />
             </div>)}
             {/* <div>
             <label htmlFor="username"></label>
@@ -105,15 +148,14 @@ const SignUp = () => {
             <label htmlFor="gender">Female</label>
             <input onChange={(e)=>handleGenderChange(e)} id='gender' type="radio" name='gender' value={"female"}/>
             </div>
+            <div style={{color:"red"}}>{error["gender"]}</div>
             </div>
             <p>By continuing, You agree to Flikart's <span>Terms of use</span> and <span>privacy policy.</span></p>
             <div className='button'>
             <button id='sign_up_button' type="submit">Sign Up</button>
             </div>
           </form>
-          <div className="sign_up">
-            <span>New to Flipkart? Create an account</span>
-          </div>
+        
         </div>
 
       </div>

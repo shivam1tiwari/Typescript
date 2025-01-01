@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "./Cart.css";
 import { useSelector, useDispatch } from 'react-redux';
 import {updateCartQuantity,clearCartItem,removeFromCart} from '../../Redux/ActionCreator.ts';
+import { useNavigate } from "react-router-dom";
 
 
 const Cart = () => {
+  const location = useNavigate()
   // State to manage cart items
   // const [cartItems, setCartItems] = useState(initialCartItems);
   // const [orderPlaced, setOrderPlaced] = useState(false); 
@@ -42,6 +44,9 @@ const Cart = () => {
     dispatch(removeFromCart(prodId))
   }
   
+  const handlePlaaceOrder = (e) => {
+       location('/checkout')
+  }
 
   return (
     <div className="cart-page">
@@ -76,7 +81,7 @@ const Cart = () => {
           <div className="cart-summary">
             <h3>Total: Rs{cart.total}</h3>
           </div>
-          <button >Place Order</button>
+          <button onClick={(e)=>handlePlaaceOrder(e)} >Place Order</button>
           </>
         // </div>
       )}

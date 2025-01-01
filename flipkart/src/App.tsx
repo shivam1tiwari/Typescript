@@ -19,6 +19,7 @@ import Profile from './pages/Profile/Profile.tsx';
 import Cart from './pages/cart/Cart.tsx';
 import Orders from './pages/Orders/Orders.tsx';
 import Home from './pages/Home/Home.tsx';
+import Checkout from './pages/Checkout/Checkout.tsx';
 
 
 
@@ -61,6 +62,7 @@ const App = ()=> {
           <Route path="/profile" element={<Profile />} />
           <Route path="products" element={<ProductList childNod={<ProductListCard/>} />} />
           <Route path='/products/product-details' element={<ProductDetails/>}/>
+          <Route path='/checkout' element={<Checkout/>}/>
         </Routes>
      <Footer/>
     </div>

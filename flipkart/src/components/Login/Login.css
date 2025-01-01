@@ -1,7 +1,7 @@
 .login__container{
   display: flex;
   width: 100vh;
-  height: 60vh;
+  /* height: 60vh; */
   margin: 1rem auto;
   
 }
@@ -10,11 +10,15 @@
   background-color: #2874F0;
   color: #ffff;
   padding: 3rem 2rem;
-  width: 37%;
+  width: 38%;
   p{
     margin-top: 1rem;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 500;
+
+  }
+  h1{
+    margin-left: 1rem;
   }
 }
 
@@ -22,7 +26,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 15rem;
+  gap: 12.5rem;
  
 }
 
@@ -38,6 +42,15 @@
 .login__container_right{
   padding: 5rem 3rem;
   background-color: #FFFFFF;
+ 
+}
+
+.login__container_right>p{
+    text-align: center;
+    margin: 0;
+    color: red;
+    font-weight: 500;
+  
 }
 
 .right__content{
@@ -85,6 +98,10 @@ form{
   margin: 1.5rem auto;
   height: 3rem;
  
+}
+
+.appearence{
+  visibility: hidden;;
 }
 
 #login_button{
