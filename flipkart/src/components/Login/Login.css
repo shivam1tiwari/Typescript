@@ -100,9 +100,18 @@ form{
  
 }
 
-.appearence{
-  visibility: hidden;;
+.appearence-1{
+  visibility: hidden;
+  border: 1px solid red;
+  
 }
+
+.invalidlogin{
+  position: relative;
+  top: -3rem;
+}
+
+
 
 #login_button{
   width: 100%;
@@ -119,4 +128,16 @@ form{
   text-align: center;
   color: #2874F0;
   font-weight: 600;
+}
+
+.common_error{
+  font-size: .8rem;
+  position: relative;
+}
+
+.red{
+  color: red;
+  margin-top: -1.5rem;
+  margin-left: -.1rem;
+
 }

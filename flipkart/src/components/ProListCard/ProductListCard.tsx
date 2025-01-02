@@ -7,10 +7,14 @@ import { useNavigate } from "react-router-dom";
 const ProductListCard = ({product}) =>{
 const location = useNavigate();  
 const dispatch = useDispatch();
-const cart = useSelector((state)=>state.cart)
+const cart = useSelector((state) => state.cart );
+const isLogin = useSelector((state) => state.user )
+
   const handleAddToCart = (e) => {
-    console.log(e.target)
+    console.log(isLogin, "shivammmm")
     console.log("this is cart")
+    if(!isLogin)return(location('/login'));
+    console.log("after null")  
     dispatch(addToCart(product))
   }
 
@@ -31,7 +35,7 @@ const cart = useSelector((state)=>state.cart)
         <div className="productListCard_container__content-rating">
           <p>{product.rating}*</p>
         </div>
-        <p><span style={{fontWeight:600}}>Rs </span> {product.price} <del><span style={{fontWeight:500}}>Rs </span>{product.price + 250}</del></p>
+        <p><span style={{fontWeight:600}}>Rs </span> {product.price}</p>
         <button data-id={product.product_id} onClick={(e)=>handleAddToCart(e)} >ADD TO CART</button>
         <p style={{fontSize:".8rem"}}>Free Delivery</p>
       </div>

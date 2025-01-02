@@ -17,12 +17,9 @@
   margin: 0 auto;
   padding: 0 10rem;
   background-color:#FFFFFF ;
-  /* border: 1px solid red; */
 }
 
 .app__container__header__nav{
-  /* border: 1px solid green; */
- 
   height: 100%;
   padding: .5rem 1.8rem;
   display: grid;

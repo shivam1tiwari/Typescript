@@ -112,3 +112,9 @@ background-color: #FFFFFF;
   display: flex;
   justify-content: space-between;
 }
+
+.checkout__add__pay_error{
+  color: red;
+  margin-top: -1rem;
+  margin-left: 1rem;
+}

@@ -5,7 +5,7 @@ import Profile from "../pages/Profile/Profile";
 import { useSelector } from "react-redux";
 
 const List = () => {
-const listName = [{"url" :"./images/icon/profile-icon.svg",name:"My Profile","Link":"/profile"},{"url" :"./images/icon/profile-icon.svg",name:"orders","Link":"/orders"}]
+const listName = [{"url" :"/images/icon/profile-icon.svg",name:"My Profile","Link":"/profile"},{"url" :"/images/icon/profile-icon.svg",name:"orders","Link":"/orders"}]
 const user = useSelector((state)=>state.user)
 console.log()
   return (

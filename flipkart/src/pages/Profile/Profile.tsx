@@ -1,11 +1,22 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect,useState } from "react";
+import { Link, } from "react-router-dom";
 import "./Profile.css"
+import { useSelector, UseSelector } from "react-redux";
 import List from "../../utils/List.tsx";
 
-
 const Profile = ()=>{
+
+  const [userInfo, setUserInfo] = useState(null);
+  const user = useSelector((state)=>state.user);
+ 
+  useEffect(()=>{
+  
+    const user = JSON.parse(localStorage.getItem('userLogin')!);
+    setUserInfo({...user})
+  
+  },[])
   return(
+
     <div className="profile__container">
       <div className="profile__container__left">
         <div className="profile_head">
@@ -19,7 +30,7 @@ const Profile = ()=>{
       <div className="profile__container__right">
         <h1>Personal Information</h1>
        <div className="profile_information">
-        <div className="profile_name common-div"> <h5>Name : Shivam</h5></div>
+        <div className="profile_name common-div"> <h5>Name : shivam</h5></div>
         <div className="profile_email common-div"> <h5>Email : st@gmail.com</h5></div>
         <div className="profile_address common-div"> <h5>Address : Noida delgi Punjab</h5></div>
         <div className="profile_pincode common-div"> <h5>Pincode : 238838</h5></div>
