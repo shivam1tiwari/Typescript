@@ -9,6 +9,7 @@ import Footer from './components/Footer/Footer.tsx';
 import Login from './components/Login/Login.tsx';
 import About from './pages/About/About.tsx';
 import ProductList from './pages/PoductList/ProductList.tsx';
+import ProductBrandList from './pages/PoductList/ProductBrandList .tsx';
 import ProductListCard from './components/ProListCard/ProductListCard.tsx';
 import SignUp from './pages/SignUp/SignUp.tsx';
 import Contact from './pages/Contact/Contact.tsx';
@@ -63,6 +64,7 @@ const App = ()=> {
           <Route path="products" element={<ProductList childNod={<ProductListCard/>} />} />
           <Route path='/products/product-details' element={<ProductDetails/>}/>
           <Route path='/checkout' element={<Checkout/>}/>
+          <Route path='/brand' element={<ProductBrandList/>}/>
         </Routes>
      <Footer/>
     </div>

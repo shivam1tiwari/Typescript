@@ -89,23 +89,21 @@ const Checkout = () => {
   };
 
   return Object.keys(userInfo).length == 0 ? (
-    <p>Loding</p>
+    <p>Loading...</p>
   ) : (
     <div className="checkout__container">
-      <h1>CHECKOUT</h1>
+      {/* <h1>CHECKOUT</h1> */}
       <div className="checkout__box">
         <div className="checkout__content">
           <div className="checkout__user__information">
             <div className="checkout__user__information_content">
               <div className="checkout__login__information">
-                <p>{userInfo["username"]}</p>
-                <ul>
-                  <li>{userInfo["email"]}</li>
-                </ul>
+                <p><b>1</b>. LOGIN<ul><li>{userInfo["username"]}</li></ul>
+                  </p>
               </div>
               <div className="info__common checkout__user__address ">
                 <div className="address__header">
-                  <p>Delivery Address</p>
+                  <p><b>2</b>. DELIVERY ADDRESS</p>
                   {editAddress ? (
                     <button onClick={() => handleFormSubmit()}>OK</button>
                   ) : (
@@ -142,7 +140,7 @@ const Checkout = () => {
               </div>
               <div className="checkout__order_summery">
                 <div className="info__common checkout__order_summery__heading ">
-                  <h3>ORDER SUMMERY</h3>
+                  <h3><b>3</b>. ORDER SUMMERY</h3>
                 </div>
                 {cart.items.map((val) => (
                   <div className="checkout__order_summery__product">
@@ -163,6 +161,7 @@ const Checkout = () => {
           </div>
           <div className="checkbox__product_total_price">
             <div className="checkout_price_details">
+              <p className="price_details_checkout">PRICE DETAILS</p>
               <div className="checkout__price">
                 <p>Price </p>
                 <p>Rs {cart.total} </p>

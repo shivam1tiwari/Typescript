@@ -1,34 +1,56 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ProductList.css";
 import { useLocation } from "react-router-dom";
 import ProductListCard from "../../components/ProListCard/ProductListCard.tsx";
 import category from "../../constant/category.ts";
 import products from "../../constant/product.ts";
 import { useState, useRef } from "react";
+import { Product } from "../ProductDetails/ProductDetails.tsx";
 import Category from "../../components/category/Category.tsx";
 
-const ProductList = () => {
+const ProductBrandList = () => {
   const [sortData, setSortData] = useState([]);
   const [sortInputByPrice, setSortInputByPrice] = useState({ min: 0, max: 0 });
+  const [product, SetProduct] = useState<Product[]>([]);
+  const [isBrand, setIsBrand] = useState(false);// checking value is brand all category
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const value = queryParams.get("key");
+  const value1 = queryParams.get("value");
+  console.log(value1,"its is value1 from");
   // const catName = category.map((val)=>val.category_id);
-  let product;
-  const catId = category
-    .map((val) => {
-      if (val.category_name == value) {
-        return val.category_id;
-      }
-    })
-    .join("");
-  if (catId) {
-    product = products.filter((val) => val.category_id === catId);
-  } else if (products.some((val) => val.brand == value)) {
-    product = products.filter((val) => val.brand == value);
-  }
+  console.log(value,"from top")
+  useEffect(()=>{
+    if(value1){
+        const product = products.filter((val)=>val.brand==value1);
+        setIsBrand(true);
+        SetProduct((prev)=>{
+          return [...product]
+        })
+    }else{
+    const setOfBrand = new Set()
+    const brandGroup = products
+      .map((val) => {
+            console.log(val["brand"])
+            setOfBrand.add(val["brand"])
+      })
+    console.log(setOfBrand)
+    const   product = products.map((val)=>{
+        for(let brand of [...setOfBrand]){
+          if(val.brand === brand){
+            return val;
+          }
+        }
+      });
+      console.log(product)
+      SetProduct((prev)=>{
+        return [...product]
+      })}
+  },[])
+  
 
-  console.log(value, product,"proooooo");
+
+  console.log(value, product);
   const handleSortByPrice = (e) => {
     if (e.target.dataset.id == "high") {
       const sort = (sortData.length == 0 ? product : sortData)
@@ -79,8 +101,10 @@ const ProductList = () => {
     });
   };
 
-  return (<>
-    <Category noImg={""} />
+  return (
+    <>
+    <Category noImg ={""}/>
+    {(product.length==0)?<div>Loading...</div>:
     <div className="product_list_container">
       <div className="product_list_container__left">
         <div className="product_list_container__left__filters">
@@ -96,7 +120,7 @@ const ProductList = () => {
           </div>
           <div className="filter_box">
             <div className="filter_categories">
-              <h5>Categories</h5>
+              <h5>{!isBrand?"Categories":"Brand"}</h5>
               <ul>
                 <li>{value}</li>
               </ul>
@@ -128,10 +152,10 @@ const ProductList = () => {
             </div>
           </div>
           <div className="filter_box">
-            <div className="filter_by_brand">
+           {(isBrand)?"": <div className="filter_by_brand">
               <h5>BRAND</h5>
               <ol>
-                {product.map((val) => (//uuuuuuuuu
+                {product.map((val) => (
                   <div key={val.brand}>
                     <label>
                       <input
@@ -145,7 +169,7 @@ const ProductList = () => {
                   </div>
                 ))}
               </ol>
-            </div>
+            </div>}
           </div>
         </div>
       </div>
@@ -195,8 +219,8 @@ const ProductList = () => {
           </div>
         </div>
       </div>
-    </div>
-    </> );
+    </div>}
+    </>);
 };
 
-export default ProductList;
+export default ProductBrandList;

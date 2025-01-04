@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { use, useEffect,useState } from "react";
 import { Link, } from "react-router-dom";
 import "./Profile.css"
 import { useSelector, UseSelector } from "react-redux";
@@ -7,6 +7,12 @@ import List from "../../utils/List.tsx";
 const Profile = ()=>{
 
   const [userInfo, setUserInfo] = useState(null);
+  const  [isEdit, setIsEdit] = useState({
+    personel:false,
+    email:false,
+    mobile:false,
+  })
+ const [newAddress, setNewAddress] = useState(false)
   const user = useSelector((state)=>state.user);
  
   useEffect(()=>{
@@ -15,6 +21,20 @@ const Profile = ()=>{
     setUserInfo({...user})
   
   },[])
+
+  const handleEdit = (e) =>{
+       const edit = e.target.dataset.id;
+       setIsEdit({
+        ...isEdit,[edit]:!isEdit[edit]
+       })
+  }
+
+  const handleOnClickManageAddr = () =>{
+    setNewAddress(true)
+  }
+  const handleInformation = () =>{
+    setNewAddress(false)
+  }
   return(
 
     <div className="profile__container">
@@ -24,16 +44,66 @@ const Profile = ()=>{
          <div><h1>Hello,</h1></div>
         </div>
         <div className="profile_order">
-          <Link className="link" to={'/orders'}><h4>ORDERS</h4></Link>
+          <Link className="link" to={'/orders'}><h4>MY ORDERS</h4></Link>
         </div>
+        <div className="profile_order">
+          <h4>ACCOUNT SETTING</h4>
+          <p onClick={()=>handleInformation()}>Profile Information</p>
+          <p onClick={()=>handleOnClickManageAddr()}>Manage Addresses</p>
+        </div>
+        
+        
       </div>
       <div className="profile__container__right">
-        <h1>Personal Information</h1>
+       { newAddress?
+        ( <div className="manage__addresses">
+          <h4 >Manage Addresses</h4>
+          <div className="add_address__box adrs_style">
+            <p>+ ADD A NEW ADDRESS</p>
+          </div>
+          <div className="old_address_box adrs_style">
+            <p>Shivam <span>7754955432</span></p>
+            <p>address</p>
+          </div>
+          </div> ):
+      <>
+         <div>
+        <h1>Personal Information <span data-id={"personel"} onClick={(e)=>handleEdit(e)}>{!isEdit.personel?"Edit":"Cancel"}</span></h1>
+        </div>
+        <div></div>
        <div className="profile_information">
-        <div className="profile_name common-div"> <h5>Name : shivam</h5></div>
-        <div className="profile_email common-div"> <h5>Email : st@gmail.com</h5></div>
-        <div className="profile_address common-div"> <h5>Address : Noida delgi Punjab</h5></div>
-        <div className="profile_pincode common-div"> <h5>Pincode : 238838</h5></div>
+        <div className="profile_name common-div">
+        <div className="profile_name border_class"> <input className={`${!isEdit.personel?"visible":""}`} type="text" /></div>
+        <div className="profile_name border_class" > <input className={`${!isEdit.personel?"visible":""}`} type="text" /></div> 
+        <button className={`${!isEdit.personel?"visible":""}`} >SAVE</button> 
+        </div>
+         
+        <div className="profile_gender common-div">
+          <p>Your Gender</p>
+          <label htmlFor=""><input  disabled={!isEdit.personel} name="gender" type="radio" />Male</label>
+          <label htmlFor=""><input disabled ={!isEdit.personel} name="gender" type="radio" />Female</label>
+        </div>
+        <div className="profile_email common-div">
+          <div>
+          <p>Email Address <span data-id={"email"} onClick={(e)=>handleEdit(e)} >{!isEdit.email?"Edit":"Cancel"}</span></p>
+          </div>
+          <div className="email_1">
+          <div className=" border_class"><input className={`${!isEdit.email?"visible":""}`} type="text" /></div>
+          <button className={`${!isEdit.email?"visible":""}`}>SAVE</button>
+          </div>
+        </div>
+        <div className="profile_mobile common-div">
+          <div>
+          <p>Mobile Number <span data-id={"mobile"} onClick={(e)=>handleEdit(e)}>{!isEdit.mobile?"Edit":"Cancel"}</span> </p>
+          </div>
+          <div className="email_1">
+          <div className=" border_class  ">
+          <input className={`${!isEdit.mobile?"visible":""}`} type="text" />
+          </div>
+          <button className={`${!isEdit.mobile?"visible":""}`}>SAVE</button>
+          </div>
+          
+        </div>
         </div> 
         <div className="profile_faq">
               <h4>  FAQs </h4>
@@ -56,8 +126,9 @@ const Profile = ()=>{
               <button>Delete Account</button> 
               <div className="profile_footer-img"><img src="/images/footer/myProfileFooter_4e9fe2.png" alt="" /></div> 
               
-        </div>
+        </div> </>}
       </div>
+      {/* nice */}
     </div>
   )
 }

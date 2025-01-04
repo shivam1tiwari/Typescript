@@ -8,11 +8,14 @@ const Card = ({ product }) => {
   const location = useNavigate();
   const handleData = (e) => {
     const id = e.target.dataset.id;
-    const catIndex = category.findIndex((val) => val.category_id == id);
-    const productName = category[catIndex].category_name;
+    // const catIndex = category.findIndex((val) => val.category_id == id);
+    // const productName = category[catIndex].category_name;
+    
+    const productName = product.brand;
     // const product = products.filter((val)=>val.category_id === id);
     // const product = {name:productName,category_id:id}
-    location(`/products?key=${productName}`);
+    console.log(productName,"from====")
+    location(`/brand?key=${productName}&value=${product.brand}`);
   };
   return (
     <div

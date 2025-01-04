@@ -58,9 +58,9 @@ const Home:React.FC = () => {
   };
   return (
     <>
-      <Category />
+      <Category noImg={" "} />
       <Slider />
-      {["brand", "grocery", "mobile", "fashion", "electronics"].map(
+      {["brand", "grocery", "mobiles", "fashion", "electronics"].map(
         (val, i) => (
           <div key={val} className="top_product_home">
             <Top

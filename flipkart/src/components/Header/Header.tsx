@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import logo from "../../asset/logo.svg";
@@ -13,20 +13,27 @@ import { logoutUser } from "../../Redux/ActionCreator.ts";
 import products from "../../constant/product.ts";
 import product from "../../constant/product.ts";
 import { useNavigate, useLocation } from "react-router-dom";
+import { State, Product } from "../../pages/ProductDetails/ProductDetails.tsx";
 
 const Header: React.FC = () => {
-  const [searchItem, setSearchItem] = useState([]);
+  const [searchItem, setSearchItem] = useState<Product[]>([]);
   const [productName, setProductName] = useState("")
+  const [removeName, setRemoveName] = useState(false)
   const location = useNavigate();
   const dispatch = useDispatch();
-  const lo = useLocation();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state:State) => state.user);
   const toggleUser = user == null ? "Login" : "My Account";
   const cartAccess = user == null ? "/login" : "/cart";
   const handleLogout = () => {
     dispatch(logoutUser());
   };
-
+  // Remove the previous name 
+  useEffect(()=>{
+    console.log(removeName,"setProductname")
+    setProductName("");
+  
+  },[removeName])
+// check this one for 
   const handleSearch = (e) => {
     const str = e.target.value;
     setProductName(str);
@@ -142,7 +149,7 @@ const Header: React.FC = () => {
                       />
                     </div>
                     <div data-name = {val.name} data-id={val.product_id}>
-                      <span data-id={val.product_id}>{val.name} </span>
+                      <span id="pro_name" data-id={val.product_id}>{val.name} </span>
                       <p data-name = {val.name} data-id={val.product_id}>
                         <span>in .</span>
                         {val.brand}
@@ -160,7 +167,7 @@ const Header: React.FC = () => {
               </div>
 
               <div className="login-text">
-                <Link className="link" to={"/login"}>
+                <Link className="link" to={`${(toggleUser!== "Login")?"":"/login"}`}>
                   <span>{toggleUser}</span>{" "}
                 </Link>
               </div>
@@ -191,7 +198,6 @@ const Header: React.FC = () => {
             <Link className="link" to={cartAccess}>
               {" "}
               <div
-                onClick={() => handleRedirect()}
                 className="cart-box login-box"
               >
                 <div className="cart-icon">

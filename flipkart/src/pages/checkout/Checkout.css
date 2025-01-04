@@ -3,9 +3,9 @@
 }
 
 .checkout__box{
-   border: 1px solid black;
+   /* border: 1px solid black; */
    width: 1200px ;
-   border: 1px solid green;
+   /* border: 1px solid green; */
    margin: 1rem auto;
    height: 100%;
 }
@@ -23,16 +23,28 @@
 .checkout__login__information,.info__common{
   
   width: 100%;
-  height: 4rem;
+  height: 5rem;
   background-color: #FFFFFF;
   box-shadow: 1px 1px 1px rgba(185, 183, 183,.3),-1px -1px 1px rgba(185, 183, 183,.3);
   border-radius: .1rem;
   margin-bottom: 1rem;
 
+  p{
+    margin: 0;
+    color: gray;
+    font-weight: 700;
+    padding:1rem 1rem;
+    li{
+      color:rgb(46, 44, 44);
+      padding: .5rem;
+    }
+  }
+
 }
 
 .checkout__order_summery{
 background-color: #FFFFFF;
+
 }
 
 .checkout__user__address{
@@ -51,12 +63,24 @@ background-color: #FFFFFF;
   display: flex;
   align-items: center;
   padding: 0 .2rem;
+
+  b{
+    /* color: white; */
+    background-color:#FFFFFF ;
+    margin-left: .8rem;
+  }
 }
 
 .checkout__order_summery__product{
   display: flex;
   gap: 2rem;
 
+}
+
+.price_details_checkout{
+  padding: 1rem 0rem;
+  font-weight:700 ;
+  color: gray;
 }
 
 #checkout__order_summery__product_img{
@@ -67,8 +91,15 @@ background-color: #FFFFFF;
 }
 
 .checkbox__product_total_price{
-  /* background-color: #FFFFFF; */
+  margin-top: -1rem;
+  position: sticky;
  
+}
+
+b{
+  padding: .1rem .3rem;
+  background-color: rgba(223, 222, 222, 0.711);
+  color: #2874F0;
 }
 
 .checkout_price_details{

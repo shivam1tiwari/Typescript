@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import "./Login.css";
 import { setUser } from "../../Redux/ActionCreator.ts";
 const Login = () => {
@@ -10,6 +10,9 @@ const Login = () => {
     password:""
   });
   const dispatch = useDispatch();
+  const redirect = useNavigate();
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
   const userLogin = useSelector((state) => state.user);
   console.log(userLogin);
   const [formData, setFormData] = useState({
@@ -67,7 +70,7 @@ const Login = () => {
       dispatch(setUser(dBData));
       console.log(dBData, "data after set");
 
-      console.log(userLogin, "after set user");
+      redirect("/")
     }
     if (
       dBData.username !== formData.username ||

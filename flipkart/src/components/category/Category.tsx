@@ -6,7 +6,7 @@ import category from "../../constant/category.ts";
 import { useNavigate } from "react-router-dom";
 import product from "../../constant/product.ts";
 
-const Category = () => {
+const Category = ({noImg}) => {
   const array = [
     { url: "./images/icon/arrow-down.svg", name: "Laptop and Desktop" },
     { url: "./images/icon/arrow-down.svg", name: "Storage" },
@@ -19,7 +19,7 @@ const Category = () => {
     console.log(id);
   };
   return (
-    <div className="category__container">
+    <div className={`category__container ${noImg?"":"category__container_noImg"}`}>
       {category.map((val, i) => (
         <div
           data-id={val.category_id}
@@ -50,7 +50,7 @@ const Category = () => {
             </div> */}
           </div>
           <div className="content-box">
-            <div className="cat_img">
+            <div className={`cat_img ${noImg?"":"no_img_nav"}`}>
               <img data-id={val.category_name} src={val.imageUrl} alt="" />
             </div>
             <div className="cat_text">

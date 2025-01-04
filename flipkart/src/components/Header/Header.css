@@ -188,6 +188,12 @@ span +p{
 }
 }
 
+#pro_name{
+  font-size: .4rem;
+  font-family: Verdana, Geneva, Tahoma ;
+  font-weight: 550;
+}
+
 @media (max-width: 1024px) {
   .app__container__header {
     padding: 0 4rem;

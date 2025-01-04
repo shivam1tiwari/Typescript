@@ -5,6 +5,7 @@ import { addToCart } from "../../Redux/ActionCreator.ts";
 import { useNavigate } from "react-router-dom";
 
 const ProductListCard = ({product}) =>{
+  
 const location = useNavigate();  
 const dispatch = useDispatch();
 const cart = useSelector((state) => state.cart );
@@ -16,6 +17,7 @@ const isLogin = useSelector((state) => state.user )
     if(!isLogin)return(location('/login'));
     console.log("after null")  
     dispatch(addToCart(product))
+    location('/cart')
   }
 
   const handleProductDetails = (e) =>{
