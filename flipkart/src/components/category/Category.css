@@ -32,11 +32,23 @@ cursor: pointer;
   display: none;
   
  }
+ .category_pop-hover1{
+  display: none;
+  
+ }
 
  .common__category:hover .category_pop-hover{
   display: block;
   position: absolute;
   top: 7rem;
+  left: -1rem;
+  display: flex;
+ }
+
+ .common__category:hover .category_pop-hover1{
+  display: block;
+  position: absolute;
+  top: 3rem;
   left: -1rem;
   display: flex;
  }

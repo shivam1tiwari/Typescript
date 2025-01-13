@@ -1,8 +1,12 @@
 import React from "react";
 import "./About.css";
+import Category from "../../constant/category";
+import Categorys from "../../components/category/Category.tsx";
 
 const About = () => {
   return (
+    <>
+    <Categorys noImg={""}/>
     <div className="about__container">
       <section className="hero_about">
         <div className="video_container">
@@ -38,6 +42,7 @@ const About = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

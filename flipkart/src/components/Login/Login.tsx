@@ -3,20 +3,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import "./Login.css";
 import { setUser } from "../../Redux/ActionCreator.ts";
+import { State } from "../../pages/ProductDetails/ProductDetails.tsx";
 const Login = () => {
   const [error, setError] = useState({
     inValid:"",
-    username:"",
+    mobile:"",
     password:""
   });
   const dispatch = useDispatch();
   const redirect = useNavigate();
   const location = useLocation();
   const query = new URLSearchParams(location.search);
-  const userLogin = useSelector((state) => state.user);
+  const userLogin = useSelector((state:State) => state.user);
   console.log(userLogin);
   const [formData, setFormData] = useState({
-    username: "",
+    mobile: "",
     password: "",
   });
 
@@ -25,7 +26,7 @@ const Login = () => {
       setError({
         ...error,
         inValid:"",
-        username:"",
+        mobile:"",
         password:""
       });
     }
@@ -41,45 +42,46 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if(formData.username === "" && formData.password === "" )return setError({
+    if(formData.mobile === "" && formData.password === "" )return setError({
       ...error,
       inValid:"",
-      username:"Username required",
+      mobile:"Mobile Number required",
       password:"Password required"
     })
 
-    if(formData.username === "")return setError({
+    if(formData.mobile === "")return setError({
       ...error,
       inValid:"",
-      username:"Username required",
+      mobile:"Mobile Number required",
       password:""
     })
 
     if(formData.password === "" )return setError({
       ...error,
       inValid:"",
-      username:"",
+      mobile:"",
       password:"Password required"
     })
     const dBData = JSON.parse(localStorage.getItem("user")!);
-    console.log(formData, dBData);
+
     if (
-      dBData.username == formData.username &&
-      dBData.password == formData.password
+      dBData.mobile === formData.mobile &&
+      dBData.password === formData.password
     ) {
       dispatch(setUser(dBData));
       console.log(dBData, "data after set");
 
       redirect("/")
     }
+
     if (
-      dBData.username !== formData.username ||
+      dBData.mobile !== formData.mobile ||
       dBData.password !== formData.password
     ) {
       setError({
         ...error,
-        inValid:"Username or Password is incorrect!",
-        username:"",
+        inValid:"Mobile Number or Password is incorrect!",
+        mobile:"",
         password:""
       });
     }
@@ -100,7 +102,7 @@ const Login = () => {
       </div>
       <div className="login__container_right">
         <p className={` ${error.inValid ? "invalidlogin" : "appearence-1"}`}>
-          Username or Password is incorrect !
+          Mobile Number or Password is incorrect !
         </p>
         <div className="right__content">
           <form onSubmit={(e) => handleSubmit(e)}>
@@ -110,14 +112,14 @@ const Login = () => {
               onChange={(e) => {
                 handleInputChange(e);
               }}
-              name="username"
+              name="mobile"
               className="login__input_field"
-              id="username"
+              id="mobile"
               type="text"
-              placeholder="Enter Username"
+              placeholder="Enter Mobile Number"
               autoComplete="off"
             />
-             <p className="red">{error.username}</p>
+             <p className="red">{error.mobile}</p>
             <label className="appearence" htmlFor="password"></label>
             <input
               onChange={(e) => {

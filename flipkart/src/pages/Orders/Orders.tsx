@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import './Orders.css'
+import {Link } from "react-router-dom";
+import Category from "../../constant/category";
+import Categorys from "../../components/category/Category.tsx";
 
 const Orders = () => {
   const [orders, setOrders] = useState(JSON.parse(localStorage.getItem('orders')!));
-
-console.log(orders)
-
-console.log(orders)
+  console.log(orders)
+  const handleSearch = (e) =>{
+    
+  }
   return (
     orders.length === 0?<p>Loading</p>:
+    <>
+    <Categorys noImg={""}/>
     <div className="order__container">
       <div className="order__container__box">
         <div className="order__container__box__upper">
@@ -53,7 +58,7 @@ console.log(orders)
                   </div>
                   <div className="orders__discription">
                     <div className="orders__discription_name">
-                      <p>{item.product.name}</p>
+                     <Link to={`/products/product-details?key=${item.product.product_id}&values=${order.orderId}`} > <p data-id={item.product.product_id} > {item.product.name}</p></Link>
                      <p className="details-order-name"> {Object.keys(item.product.attributes).map((val)=><span>{item.product.attributes[val]}{" "}</span>)}</p>
                     </div>
                     <div className="orders__description_attributs">
@@ -71,6 +76,7 @@ console.log(orders)
         </div>
       </div>
     </div>
+    </>
 );
 };
 

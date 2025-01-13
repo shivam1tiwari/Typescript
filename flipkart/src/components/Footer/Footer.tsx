@@ -1,6 +1,10 @@
 import React from "react";
 import "./Footer.css";
 import { Link } from "react-router-dom";
+/**
+ * 
+ * @returns only bottom UI
+ */
 const Footer = () => {
   const footerListArrCol1 = [];
   const footerListArrCol2 = [];
@@ -28,34 +32,30 @@ const Footer = () => {
         <div className="single-box">
           <p>GROUP COMPANIES</p>
           <ul>
-            <li>Contact Us</li>
-            <li>About Us</li>
-            <li>Careers</li>
-            <li>Flipkat Stories</li>
-            <li>Press</li>
-            <li>Corporate Information</li>
+            <li>Myntra</li>
+            <li>Cleartrip</li>
+            <li>Shopsy</li>
           </ul>
         </div>
         <div className="single-box">
           <p>HELP</p>
           <ul>
-            <li>Contact Us</li>
-            <li>About Us</li>
-            <li>Careers</li>
-            <li>Flipkat Stories</li>
-            <li>Press</li>
-            <li>Corporate Information</li>
+            <li>Payments</li>
+            <li>Shipping</li>
+            <li>Cancellation & Returns</li>
+            <li>FAQ</li>
           </ul>
         </div>
         <div className="single-box">
           <p>Policy</p>
           <ul>
-            <li>Contact Us</li>
-            <li>About Us</li>
-            <li>Careers</li>
-            <li>Flipkat Stories</li>
-            <li>Press</li>
-            <li>Corporate Information</li>
+            <li>Cancellation & Returns</li>
+            <li>Terms Of Use</li>
+            <li>Security</li>
+            <li>Privacy</li>
+            <li>Sitemap</li>
+            <li>Grievance Redressal</li>
+            <li>ERP Compliance</li>
           </ul>
         </div>
         <div className="mail single-box">

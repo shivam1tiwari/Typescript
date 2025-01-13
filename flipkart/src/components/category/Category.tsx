@@ -13,9 +13,13 @@ const Category = ({noImg}) => {
   ];
   const location = useNavigate();
   const handleCategory = (e) => {
+    e.stopPropagation();
     console.log(e.target);
+    const value = e.target.dataset.value;
     const id = e.target.dataset.id;
-    location(`/products?key=${id}`);
+    if(value){ location(`/products?key=${id}&values=${value}`);}
+    if(!value){ location(`/products?key=${id}`);}
+    // location(`/products?key=${id}&values=${value}`);
     console.log(id);
   };
   return (
@@ -33,16 +37,15 @@ const Category = ({noImg}) => {
             className={`${
               val.category_name === "Electronics" ||
               val.category_name === "Fashion"
-                ? "category_pop-hover "
+                ? `${noImg?"category_pop-hover":"category_pop-hover1"}` 
                 : "invisible"
             }`}
           >
             <div>
               <CategoryPop
                 key={val.category_id}
-                categoryPopName={product
-                  .filter((value) => value.category_id === val.category_id)
-                  .map((value) => value.brand)}
+                cat={val.category_name}
+                categoryPopName={val.category_name === 'Fashion'?["Women's","Men's","Kid's"]:["Laptop","TV","Drones","Airpods","Camera","Tablets"]}
               />
             </div>
             {/* <div>
@@ -54,7 +57,7 @@ const Category = ({noImg}) => {
               <img data-id={val.category_name} src={val.imageUrl} alt="" />
             </div>
             <div className="cat_text">
-              <div className="with_arrow">
+              <div  className="with_arrow">
                 <span
                   data-id={val.category_name}
                   onClick={(e) => {

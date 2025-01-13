@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ProductList.css";
 import { useLocation } from "react-router-dom";
 import ProductListCard from "../../components/ProListCard/ProductListCard.tsx";
@@ -6,15 +6,23 @@ import category from "../../constant/category.ts";
 import products from "../../constant/product.ts";
 import { useState, useRef } from "react";
 import Category from "../../components/category/Category.tsx";
-
+//  Product List show all Product 
 const ProductList = () => {
   const [sortData, setSortData] = useState([]);
   const [sortInputByPrice, setSortInputByPrice] = useState({ min: 0, max: 0 });
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const value = queryParams.get("key");
-  // const catName = category.map((val)=>val.category_id);
+  const value1 = queryParams.get("values");
+  const [brandFilterState, setBrandFilterState ] = useState([]);
+  const [product, setProduct] = useState([])
+  // display product
+  useEffect(()=>{
   let product;
+  if(value1){
+    product = products.filter((val)=>val.subcategory_name === value1);
+    console.log(product, value , "nice")
+  }else{
   const catId = category
     .map((val) => {
       if (val.category_name == value) {
@@ -27,8 +35,13 @@ const ProductList = () => {
   } else if (products.some((val) => val.brand == value)) {
     product = products.filter((val) => val.brand == value);
   }
-
-  console.log(value, product,"proooooo");
+  }
+  setProduct(()=>{
+    return [...product]
+  })
+},[value,value1])
+ 
+  // Handle sorting by price
   const handleSortByPrice = (e) => {
     if (e.target.dataset.id == "high") {
       const sort = (sortData.length == 0 ? product : sortData)
@@ -60,27 +73,47 @@ const ProductList = () => {
   const sortRangePrice = (e) => {
     e.preventDefault();
     console.log(e.target);
+   console.log((sortData.length == 0),"sooor");
     setSortData((prev) => {
       const newData = (sortData.length == 0 ? product : sortData).filter(
         (val) =>
-          val.price > sortInputByPrice["min"] &&
-          val.price < sortInputByPrice["max"]
+          val.price >= sortInputByPrice["min"] &&
+          val.price <= sortInputByPrice["max"]
       );
       return [...newData];
     });
   };
-
+  
   const handleBrandCheckbox = (e) => {
+    console.log(e.target.value)
+    const isPresent =  brandFilterState.findIndex((val)=>val=== e.target.value);
+    if(isPresent !== -1){
+      brandFilterState.splice(isPresent,1);
+      setBrandFilterState([...brandFilterState])
+    }
+    if(isPresent == -1){
+      brandFilterState.push(e.target.value);
+      setBrandFilterState([...brandFilterState])
+    }
+   console.log(brandFilterState)
+
     setSortData((prev) => {
-      const newData = (sortData.length == 0 ? product : sortData).filter(
-        (val) => val.brand == e.target.value
-      );
+      let newData:any = []
+      for(let brand of brandFilterState){
+      const rawData = product.filter(
+        (val) => val.brand === brand);
+      newData = [...newData,...rawData]
+      }
       return [...newData];
     });
   };
-
+  const handleClearFilter = () =>{
+    window.location.reload();
+  }
+  console.log(brandFilterState,"last")
   return (<>
     <Category noImg={""} />
+    { (!product)?<h1>Loading</h1>:
     <div className="product_list_container">
       <div className="product_list_container__left">
         <div className="product_list_container__left__filters">
@@ -90,7 +123,7 @@ const ProductList = () => {
                 <h3>Filter</h3>
               </div>
               <div>
-                <button className="invisible">CLEAR ALL</button>
+                <button onClick={()=>handleClearFilter()} className="clear-but">CLEAR ALL</button>
               </div>
             </div>
           </div>
@@ -98,7 +131,8 @@ const ProductList = () => {
             <div className="filter_categories">
               <h5>Categories</h5>
               <ul>
-                <li>{value}</li>
+                <li>{value} {`/${value1?value1:""}`}</li>
+                
               </ul>
             </div>
           </div>
@@ -107,21 +141,23 @@ const ProductList = () => {
               <div>
              
                 <h5>PRICE</h5>
-                <form onClick={(e) => sortRangePrice(e)}>
+                <form >
                   <label htmlFor="">Min</label>
                   <input
                     onChange={(e) => handleChangeInputByPrice(e)}
                     name="min"
                     type="text"
+                    autoComplete="off"
                   />
                   <label htmlFor="">Max</label>
                   <input
                     onChange={(e) => handleChangeInputByPrice(e)}
                     name="max"
                     type="text"
+                    autoComplete="off"
                   />
                   <div className="btn-price-sort">
-                    <button type="submit">Go</button>
+                    <button onClick={(e) => sortRangePrice(e)} type="submit">Go</button>
                   </div>
                 </form>
               </div>
@@ -131,8 +167,8 @@ const ProductList = () => {
             <div className="filter_by_brand">
               <h5>BRAND</h5>
               <ol>
-                {product.map((val) => (//uuuuuuuuu
-                  <div key={val.brand}>
+                {(!product)?<p>Loading</p>:product.map((val) => (//uuuuuuuuu
+                  <div key={val.product_id}>
                     <label>
                       <input
                         onChange={(e) => handleBrandCheckbox(e)}
@@ -175,7 +211,7 @@ const ProductList = () => {
         </div>
         <div className="product_list_show">
           <div className="product_list_show__categories">
-            <h3 className="class_pad">{value}</h3>
+            <h3 className="class_pad">{value}{` /${value1?value1:""}`}</h3>
           </div>
           <div className="product_list_show__sort class_pad">
             <h5>Sort By</h5>
@@ -195,7 +231,7 @@ const ProductList = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div>}
     </> );
 };
 

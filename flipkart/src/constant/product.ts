@@ -360,6 +360,7 @@ export default [
     stock_quantity: 250,
     rating: 4.5,
     category_id: "C003",
+    subcategory_name:"Men's",
     image_url: "/images/products/mens_slim_fit_jeans.jpg",
     attributes: {
       color: "Indigo",
@@ -374,6 +375,7 @@ export default [
     description:
       "Elegant floral print dress, ideal for casual outings, made with breathable cotton fabric.",
     price: 2499,
+    subcategory_name:"Women",
     brand: "Zara",
     stock_quantity: 180,
     rating: 4.7,
@@ -396,6 +398,7 @@ export default [
     stock_quantity: 120,
     rating: 4.6,
     category_id: "C003",
+    subcategory_name:"Men's",
     image_url: "/images/products/mens_leather_jacket.jpg",
     attributes: {
       color: "Black",
@@ -432,6 +435,7 @@ export default [
     stock_quantity: 250,
     rating: 4.5,
     category_id: "C003",
+    subcategory_name:"Men's",
     image_url: "/images/products/mens_polo_shirt.jpg",
     attributes: {
       color: "Navy Blue",
@@ -450,6 +454,7 @@ export default [
     stock_quantity: 150,
     rating: 4.8,
     category_id: "C003",
+    subcategory_name:"Women's",
     image_url: "/images/products/womens_sneakers.jpg",
     attributes: {
       color: "White & Pink",
@@ -468,6 +473,7 @@ export default [
     stock_quantity: 200,
     rating: 4.4,
     category_id: "C003",
+    subcategory_name:"Men's",
     image_url: "/images/products/mens_casual_chinos.jpg",
     attributes: {
       color: "Beige",
@@ -484,8 +490,9 @@ export default [
     price: 5999,
     brand: "Mango",
     stock_quantity: 130,
-    rating: 4.6,
+    rating: 4.8,
     category_id: "C003",
+    subcategory_name:"Women's",
     image_url: "/images/products/womens_winter_coat.jpg",
     attributes: {
       color: "Dark Grey",
@@ -504,6 +511,7 @@ export default [
     stock_quantity: 180,
     rating: 4.7,
     category_id: "C003",
+    subcategory_name:"Men's",
     image_url: "/images/products/mens_running_shoes.jpg",
     attributes: {
       color: "Black & Red",
@@ -514,15 +522,16 @@ export default [
   },
   {
     product_id: "P030",
-    name: "Women's Sunglasses",
+    name: "Girls Printed Hooded Neck Yellow Sweater",
     description:
-      "Stylish oversized sunglasses, offering 100% UV protection and a fashionable design.",
+      "Styles  Girls Printed Hooded Neck Black Sweater looking beautiful.",
     price: 1299,
-    brand: "Ray-Ban",
+    brand: "PUMA",
     stock_quantity: 250,
-    rating: 4.8,
+    rating: 4.2,
     category_id: "C003",
-    image_url: "/images/products/womens_sunglasses.jpg",
+    subcategory_name:"Kid's",
+    image_url: "/images/products/6-12-months-babycardigan-button-2color-yellow-s-momisy-original-imagkyt8h9xtphhh.webp",
     attributes: {
       color: "Black",
       lens_type: "Polarized",
@@ -531,6 +540,7 @@ export default [
     },
     // electronics
   },
+
   {
     product_id: "P031",
     name: "Samsung 55-inch 4K Smart TV",
@@ -541,6 +551,7 @@ export default [
     stock_quantity: 80,
     rating: 4.7,
     category_id: "C004",
+    subcategory_name:"TV",
     image_url: "/images/products/samsung_55_inch_tv.jpg",
     attributes: {
       screen_size: "55 inches",
@@ -559,6 +570,7 @@ export default [
     stock_quantity: 50,
     rating: 4.8,
     category_id: "C004",
+    subcategory_name:"Laptop",
     image_url: "/images/products/macbook_pro_14_m2.jpg",
     attributes: {
       screen_size: "14 inches",
@@ -595,6 +607,7 @@ export default [
     stock_quantity: 150,
     rating: 4.7,
     category_id: "C004",
+    subcategory_name:"Headphone",
     image_url: "/images/products/bose_quietcomfort_45.jpg",
     attributes: {
       color: "Black",
@@ -613,6 +626,7 @@ export default [
     stock_quantity: 200,
     rating: 4.6,
     category_id: "C004",
+    subcategory_name:"Airpods",
     image_url: "/images/products/airpods_pro_2.jpg",
     attributes: {
       color: "White",
@@ -631,6 +645,7 @@ export default [
     stock_quantity: 80,
     rating: 4.8,
     category_id: "C004",
+    subcategory_name:"Camera",
     image_url: "/images/products/canon_eos_90d.jpg",
     attributes: {
       resolution: "32.5 MP",
@@ -649,6 +664,7 @@ export default [
     stock_quantity: 60,
     rating: 4.7,
     category_id: "C004",
+    subcategory_name:"Tablets",
     image_url: "/images/products/samsung_galaxy_tab_s8.jpg",
     attributes: {
       screen_size: "14.6 inches",
@@ -667,6 +683,7 @@ export default [
     stock_quantity: 40,
     rating: 4.9,
     category_id: "C004",
+    subcategory_name:"Drones",
     image_url: "/images/products/dji_air_2s_drone.jpg",
     attributes: {
       camera_resolution: "20 MP",
@@ -685,6 +702,7 @@ export default [
     stock_quantity: 90,
     rating: 4.6,
     category_id: "C004",
+    subcategory_name:"Laptop",
     image_url: "/images/products/lg_27_inch_4k_monitor.jpg",
     attributes: {
       screen_size: "27 inches",

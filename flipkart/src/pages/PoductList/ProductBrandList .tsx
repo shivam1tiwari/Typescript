@@ -7,6 +7,9 @@ import products from "../../constant/product.ts";
 import { useState, useRef } from "react";
 import { Product } from "../ProductDetails/ProductDetails.tsx";
 import Category from "../../components/category/Category.tsx";
+import { useSelector } from "react-redux";
+import { State, Cart } from "../ProductDetails/ProductDetails.tsx";
+
 
 const ProductBrandList = () => {
   const [sortData, setSortData] = useState([]);

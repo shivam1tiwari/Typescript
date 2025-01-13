@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { Link } from "react-router-dom";
 import "./Cart.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
   updateCartQuantity,
-  clearCartItem,
   removeFromCart,
 } from "../../Redux/ActionCreator.ts";
 import { useNavigate } from "react-router-dom";
 import { State } from "../ProductDetails/ProductDetails.tsx";
-
+import Category from "../../constant/category.ts";
+import Categorys from "../../components/category/Category.tsx";
+/**
+ * This is store from where user can see which product selected to purchase
+ * @returns 
+ */
 const Cart = () => {
   const location = useNavigate();
   const dispatch = useDispatch();
@@ -17,7 +21,7 @@ const Cart = () => {
   const user = useSelector((state: State) => state.user);
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
-  });
+  },[]);
 
   const handleUdateQuantity = (e) => {
     console.log(e.target.dataset.id, "this click id");
@@ -27,11 +31,11 @@ const Cart = () => {
     console.log(item, "item value");
     console.log(item[0].quantity, item, "item value");
     let quantity;
-    if (e.target.dataset.button == "max") {
+    if (e.target.dataset.button === "max") {
       quantity = item[0].quantity + 1;
     }
-    if (e.target.dataset.button == "min") {
-      if (item[0].quantity == 1) {
+    if (e.target.dataset.button === "min") {
+      if (item[0].quantity === 1) {
         quantity = 1;
       } else {
         quantity = item[0].quantity - 1;
@@ -41,34 +45,40 @@ const Cart = () => {
     console.log(e.target.dataset.id, quantity, "checking payload ");
     dispatch(updateCartQuantity(e.target.dataset.id, quantity));
   };
-
-  const handleClearCart = () => {
-    dispatch(clearCartItem());
-  };
-
+// // handle clear cart
+//   const handleClearCart = () => {
+//     dispatch(clearCartItem());
+//   };
+// Handle Removing Item
   const handleRemoveItem = (e) => {
     const prodId = e.target.dataset.id;
     console.log(prodId);
     dispatch(removeFromCart(prodId));
   };
-
+// Handle place order
   const handlePlaceOrder = (e) => {
     location("/checkout");
   };
 
   return (
+    
+    !user?<p style={{textAlign:"center"}}>OOPS! USER NOT FOUND. PLEASE LOGIN</p>:
+    <>
+    <Categorys noImg=""/>
     <div className="cart-page">
-      <h4>Flipkart</h4>
+      
+       {cart.items.length === 0 ? (
+        <>
+        {/* <Categorys noImg={""}/> */}
+        <p>Your cart is empty!</p>
+        </>
+      ) : 
+     ( <>
+     <h4>Flipkart</h4>
       <div className="user__info_in_cart">
         <p>Deliver to: <span>{user.username.substring(0,1).toLocaleUpperCase() + user.username.substring(1)},{" "}{user.pincode}</span></p>
-        <p>{user.address}</p>
+        <p>{user.address[0]}</p>
       </div>
-
-      {/* If the cart is empty */}
-      {cart.items.length === 0 ? (
-        <p>Your cart is empty!</p>
-      ) : (
-        <>
           <div className="cart-items">
             <div className="description_section">
               {cart.items.map((item) => (
@@ -113,7 +123,6 @@ const Cart = () => {
                       <p>
                         <h3> Rs.{item.totalPrice}</h3>
                       </p>
-
                       <button
                         className="remove-butt"
                         data-id={item.product.product_id}
@@ -162,15 +171,16 @@ const Cart = () => {
             </div>
           </div>
         </>
-      )}
-      <div  className="cart_button_section">
-        <button className="invisible" onClick={() => handleClearCart()}>
+       )}
+      <div   className={`cart_button_section `}>
+        <button className="invisible" >
           Clear Cart
         </button>
-        <button id="place__button" onClick={(e) => handlePlaceOrder(e)}>Place Order</button>
+        <button id={`place__button`} style={cart.items.length === 0 ? {display:"none"}:{} }  onClick={(e) => handlePlaceOrder(e)}>Place Order</button>
       </div>
     </div>
-  );
+    </>
+);
 };
 
 export default Cart;

@@ -26,6 +26,7 @@ const Header: React.FC = () => {
   const cartAccess = user == null ? "/login" : "/cart";
   const handleLogout = () => {
     dispatch(logoutUser());
+    location('/')
   };
   // Remove the previous name 
   useEffect(()=>{
@@ -182,7 +183,7 @@ const Header: React.FC = () => {
                     <span>Sign Up</span>
                   </Link>
                 </div>}
-                <List />
+               {user?<List />:""}
                 {user !== null ? (
                   <div
                     onClick={() => handleLogout()}

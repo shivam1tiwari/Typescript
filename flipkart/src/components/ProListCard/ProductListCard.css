@@ -40,7 +40,7 @@
 }
 
 .productListCard_container__content-rating{
-  margin: 1rem 0;
+  margin: 1rem 1rem;
   background-color: green;
   color: #FFFF;
   font-weight: 600;
@@ -66,4 +66,13 @@
 
  .light-mod{
   background-color: gray;
+ }
+
+ #add_to_cart_D{
+  margin-left:1rem
+ }
+
+ .attributes_D{
+  /* margin-left: .2rem ; */
+  font-size: 1rem;
  }

@@ -1,11 +1,32 @@
 import React from 'react'
 import './Contact.css'
+import { useState } from 'react'
+import Category from '../../constant/category'
+import Categorys from '../../components/category/Category.tsx'
 const Contact = () => {
-   const handleFocus =()=>{
-    console.log("raju")
+  const [formData, setFormData] = useState(
+    {name:"",
+    email:"",
+    message:""
+  })
+  //  const handleFocus =()=>{
+  //   console.log("raju")
+  //  }
+
+   const handleOnChange = (e) =>{
+    const {name, value} = e.target;
+    setFormData({
+      ...formData,[name]:value
+    })
+   }
+   const handleSubmit = (e) =>{
+    e.preventDefault()
+    localStorage.setItem("message",JSON.stringify(formData));
    }
 
   return(
+    <>
+    <Categorys noImg={""} />
     <div className="contact__container">
       <div className="contact__container_left">
         <div className="contact__content">
@@ -20,18 +41,18 @@ const Contact = () => {
       </div>
       <div className="contact__container_right">
         <div className="right__content">
-          <form action="">
+          <form onSubmit={(e)=>handleSubmit(e)}>
             <div>
             <label htmlFor="username"></label>
-            <input className='common_input' id='username' type="text" placeholder='Enter Name' autoComplete={"off"} />
+            <input onChange={(e)=>handleOnChange(e)} className='common_input' id='username' type="text" name='name' placeholder='Enter Name' autoComplete={"off"} />
             </div>
             <div>
             <label htmlFor="email"></label>
-            <input className='common_input' id='email' type="text" placeholder='Enter Email' autoComplete="off"/>
+            <input onChange={(e)=>handleOnChange(e)} className='common_input' id='email' type="text" name='email' placeholder='Enter Email' autoComplete="off"/>
             </div>
             <div>
             <label htmlFor="address"></label>
-            <textarea className='common_input' id='address' cols={50} rows={20} placeholder='Write message...' autoComplete="off"/>
+            <textarea onChange={(e)=>handleOnChange(e)} className='common_input' id='address' name='message' cols={50} rows={20} placeholder='Write message...' autoComplete="off"/>
             </div>
             <p>By contact us, You agree to Flikart's <span>Terms of use</span> and <span>privacy policy.</span></p>
             <div className='button'>
@@ -42,6 +63,7 @@ const Contact = () => {
 
       </div>
     </div>
+    </>
   )
 }
 

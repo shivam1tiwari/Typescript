@@ -49,7 +49,7 @@ const Slider = () => {
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
           {slides.map((val) => (
-            <div className="slide">
+            <div key={val} className="slide">
               <img src={val} alt="" />
             </div>
           ))}
@@ -75,7 +75,7 @@ const Slider = () => {
       </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
         {slides.map((val, i) => (
-          <div className="timer-slide">
+          <div key={val} className="timer-slide">
             {currentSlide == i ? (
               <Timer
                 key={val}
