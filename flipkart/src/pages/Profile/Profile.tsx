@@ -255,7 +255,7 @@ const Profile = () => {
               <div className="profile_name common-div">
                 <div className="profile_name border_class">
                   <input
-                    value={inputName.username}
+                    value={inputName.username.substring(0, 1).toLocaleUpperCase() +inputName.username.substring(1) }
                     name="username"
                     onChange={(e) => onChangeInp(e)}
                     type="text"

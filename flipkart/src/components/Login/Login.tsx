@@ -70,6 +70,7 @@ const Login = () => {
     ) {
       dispatch(setUser(dBData));
       console.log(dBData, "data after set");
+      sessionStorage.setItem('login',JSON.stringify(dBData) )
 
       redirect("/")
     }

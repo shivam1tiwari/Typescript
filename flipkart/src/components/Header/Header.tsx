@@ -26,6 +26,9 @@ const Header: React.FC = () => {
   const cartAccess = user == null ? "/login" : "/cart";
   const handleLogout = () => {
     dispatch(logoutUser());
+    if(sessionStorage.getItem('login')){
+      sessionStorage.removeItem('login')
+    }
     location('/')
   };
   // Remove the previous name 

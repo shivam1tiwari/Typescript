@@ -1,7 +1,10 @@
 import { SET_USER,LOGOUT_USER } from "./ActionType.ts";
-
-
-const initialUserState = null;  
+let initialUserState;
+initialUserState = null; 
+if(sessionStorage.getItem('login')){
+  initialUserState = JSON.parse(sessionStorage.getItem('login')!)
+}
+  
 export const userReducer = (state = initialUserState, action) => {
   switch (action.type) {
     case SET_USER:
