@@ -20,7 +20,7 @@ const Top = ({ noOfProd, brandName, product }) => {
   }
  
   return (
-    <div className="top__container">
+    <div key={brandName} className="top__container">
       <div className="top__content">
         <div className="top__content_name">
           <div className="top__content_name-text">

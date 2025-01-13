@@ -10,17 +10,17 @@ const Home:React.FC = () => {
   interface state {
     brand: number;
     grocery: number;
-    mobile: number;
+    mobiles: number;
     electronics: number;
-    appliances: number;
+    fashion: number;
   }
 
   const [direction, setDirection] = useState<state>({
     brand: 0,
     grocery: 0,
-    mobile: 0,
+    mobiles: 0,
     electronics: 0,
-    appliances: 0,
+    fashion: 0,
   });
   const location = useLocation();
   console.log(location);
@@ -64,7 +64,7 @@ const Home:React.FC = () => {
         (val, i) => (
           <div key={val} className="top_product_home">
             <Top
-              key={val}
+              key={i}
               noOfProd={direction[val]}
               brandName={val}
               product={product[i]}
@@ -87,7 +87,7 @@ const Home:React.FC = () => {
               data-id={val}
               value={"prev"}
             >
-              <img src="/images/icon/arrow-down.svg" alt="" />
+              <img src="/images/icon/arrow-down.svg" alt="arrowButton" />
             </button>
           </div>
         )

@@ -12,6 +12,7 @@ import { State, Cart } from "../ProductDetails/ProductDetails.tsx";
 
 
 const ProductBrandList = () => {
+  const [brandFilterState, setBrandFilterState ] = useState([]);
   const [sortData, setSortData] = useState([]);
   const [sortInputByPrice, setSortInputByPrice] = useState({ min: 0, max: 0 });
   const [product, SetProduct] = useState<Product[]>([]);
@@ -21,6 +22,7 @@ const ProductBrandList = () => {
   const value = queryParams.get("key");
   const value1 = queryParams.get("value");
   console.log(value1,"its is value1 from");
+
   // const catName = category.map((val)=>val.category_id);
   console.log(value,"from top")
   useEffect(()=>{
@@ -96,12 +98,33 @@ const ProductBrandList = () => {
   };
 
   const handleBrandCheckbox = (e) => {
+    console.log(e.target.value)
+    const isPresent =  brandFilterState.findIndex((val)=>val=== e.target.value);
+    if(isPresent !== -1){
+      brandFilterState.splice(isPresent,1);
+      setBrandFilterState([...brandFilterState])
+    }
+    if(isPresent == -1){
+      brandFilterState.push(e.target.value);
+      setBrandFilterState([...brandFilterState])
+    }
+   console.log(brandFilterState)
+
     setSortData((prev) => {
-      const newData = (sortData.length == 0 ? product : sortData).filter(
-        (val) => val.brand == e.target.value
-      );
+      let newData:any = []
+      for(let brand of brandFilterState){
+      const rawData = product.filter(
+        (val) => val.brand === brand);
+      newData = [...newData,...rawData]
+      }
       return [...newData];
     });
+    // setSortData((prev) => {
+    //   const newData = (sortData.length == 0 ? product : sortData).filter(
+    //     (val) => val.brand == e.target.value
+    //   );
+    //   return [...newData];
+    // });
   };
 
   return (
@@ -125,7 +148,7 @@ const ProductBrandList = () => {
             <div className="filter_categories">
               <h5>{!isBrand?"Categories":"Brand"}</h5>
               <ul>
-                <li>{value}</li>
+                <li>{value.substring(0,1).toLocaleUpperCase()+ value.substring(1)}</li>
               </ul>
             </div>
           </div>
@@ -202,7 +225,7 @@ const ProductBrandList = () => {
         </div>
         <div className="product_list_show">
           <div className="product_list_show__categories">
-            <h3 className="class_pad">{value}</h3>
+            <h3 className="class_pad">{value.substring(0,1).toLocaleUpperCase()+ value.substring(1)}</h3>
           </div>
           <div className="product_list_show__sort class_pad">
             <h5>Sort By</h5>

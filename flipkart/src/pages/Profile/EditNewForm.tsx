@@ -27,7 +27,7 @@ const EditNewForm = ({data,set, state}) =>{
   };
   const handleAddAddress = (e) => {
     e.preventDefault();
-    set()
+    set();
     setFormData({
       id:data["id"],
       name: data["name"],

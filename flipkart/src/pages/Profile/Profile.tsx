@@ -52,7 +52,8 @@ const Profile = () => {
     gender: "",
   });
   const [error, SetError] = useState({ mobile: "", pincode: "" });
-  const [isDelet, setIsDelet] = useState(false)
+  const [isDelet, setIsDelet] = useState(false);
+  const [updateUI, setUpadateUI] = useState(false)
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user")!);
@@ -65,7 +66,7 @@ const Profile = () => {
       pincode: user["pincode"],
       gender: user["gender"],
     });
-  }, [openForm, isEdit,isDelet]);
+  }, [openForm, isEdit,isDelet,updateUI]);
   const handleAddressEdit = (e) =>{
     e.preventDefault()
     console.log(e.target.dataset.id);
@@ -142,33 +143,34 @@ const Profile = () => {
   // close form
   const handleCloseEditForm = ()=>{
          setAddressEdit(null);
+         setUpadateUI(!updateUI);
   }
   // submit new address form
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (formData.mobile.length !== 10) {
-      SetError({ ...error, mobile: "Mobile number should 10 digit" });
-      // alert("enter mobile");
-      return;
-    }
-    if (formData.pincode.length !== 6) {
-      SetError({ ...error, pincode: "Pincode number should 6 digit" });
-      // alert("enter mobile");
-      return;
-    }
-    const user = JSON.parse(localStorage.getItem("user")!);
-    if (user) {
-      const obj = { ...user, address: [...user["address"], {id:user["address"].length,...formData }] };
-      localStorage.setItem("user", JSON.stringify(obj));
-      setOpenForm(false);
-      setIsDelet(!(isDelet))
-      console.log(obj);
-    }
-  };
+  // const handleFormSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (formData.mobile.length !== 10) {
+  //     SetError({ ...error, mobile: "Mobile number should 10 digit" });
+  //     // alert("enter mobile");
+  //     return;
+  //   }
+  //   if (formData.pincode.length !== 6) {
+  //     SetError({ ...error, pincode: "Pincode number should 6 digit" });
+  //     // alert("enter mobile");
+  //     return;
+  //   }
+  //   const user = JSON.parse(localStorage.getItem("user")!);
+  //   if (user) {
+  //     const obj = { ...user, address: [...user["address"], {id:user["address"].length,...formData }] };
+  //     localStorage.setItem("user", JSON.stringify(obj));
+  //     setOpenForm(false);
+  //     setIsDelet(!(isDelet))
+  //     console.log(obj);
+  //   }
+  // };
   // Errors in mobile or pincod field
-  const handleErrors = () => {
-    SetError({ ...error, mobile: "", pincode: "" });
-  };
+  // const handleErrors = () => {
+  //   SetError({ ...error, mobile: "", pincode: "" });
+  // };
   const handleAddressDelete = (e) =>{
     const user = JSON.parse(localStorage.getItem("user")!);
         const ind = user.address.findIndex((val)=>{console.log(val.id,"hyyyy");  return val.id == e.target.dataset.id ;})

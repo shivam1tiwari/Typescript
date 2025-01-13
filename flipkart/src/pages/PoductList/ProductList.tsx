@@ -123,7 +123,7 @@ const ProductList = () => {
                 <h3>Filter</h3>
               </div>
               <div>
-                <button onClick={()=>handleClearFilter()} className="clear-but">CLEAR ALL</button>
+                <button onClick={()=>handleClearFilter()} className="clear-but invisible">CLEAR ALL</button>
               </div>
             </div>
           </div>
